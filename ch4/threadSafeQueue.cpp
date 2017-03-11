@@ -11,7 +11,7 @@ using namespace std;
 template <typename value_type>
 class ThreadSafeQueue {
 private:
-	mutex m_mutex;
+	mutable mutex m_mutex;
 	queue<value_type> m_data;
 	condition_variable m_conditionVar;
 

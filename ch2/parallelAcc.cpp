@@ -9,6 +9,7 @@ template <typename Iterator, typename value>
 class accumlateBlock {
 public:
 	void operator()(Iterator first, Iterator last, value& result) {
+		cout << "Thread running!" << endl;
 		result = accumulate(first, last, result);
 	}
 };
@@ -41,6 +42,7 @@ value parallelAccumulate(Iterator first, Iterator last, value init) {
 	accumlateBlock<Iterator, value>()(blockStart, last, result[threadSize - 1]);
 
 	for_each(threads.begin(), threads.end(), [](thread& thd) {
+		cout << thd.get_id() << endl;
 		thd.join();
 	});
 
